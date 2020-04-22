@@ -20,6 +20,6 @@ from users import urls as user_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("user/", include("users.urls", namespace="user")),
+    path("users/", include("users.urls", namespace="users")),
     path("", TemplateView.as_view(template_name="index.html"), name="home"),
 ]

@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from users import urls as user_urls
+from thoughts import urls as thoughts_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("thoughts/", include("thoughts.urls", namespace="thoughts")),
     path("users/", include("users.urls", namespace="users")),
     path("", TemplateView.as_view(template_name="index.html"), name="home"),
 ]

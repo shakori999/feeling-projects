@@ -20,6 +20,13 @@ class Group(models.Model):
 class Family(Group):
     members = models.ManyToManyField(User, related_name="families")
 
+    class Meta:
+        verbose_name_plural = "families"
+
 
 class Company(Group):
     members = models.ManyToManyField(User, related_name="companies")
+
+    class Meta:
+        verbose_name_plural = "companies"
+

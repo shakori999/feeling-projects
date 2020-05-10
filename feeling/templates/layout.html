@@ -18,6 +18,22 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="{% url 'home' %}">Fellings</a>
+        <div class="nav navbar-nav navbar-left">
+            <!-- Example single danger button -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Companies
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'groups:create'  %}">Create</a>
+                    <div class="dropdown-divider"></div>
+                    {% for company in user.companies.all %}
+                    <a class="dropdown-item" href="{% url 'groups:detail' slug=company.slug %}">{{company.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

@@ -12,7 +12,7 @@ class Group(models.Model):
         User, on_delete=models.CASCADE, related_name="%(class)s_created"
     )
     name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from="name", default="")
+    slug = AutoSlugField(populate_from="name", default="", unique=True)
     description = models.TextField(default="")
 
     class Meta:

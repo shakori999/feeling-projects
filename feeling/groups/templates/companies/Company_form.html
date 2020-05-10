@@ -1,22 +1,32 @@
 {% extends 'layout.html' %}
 {% load bootstrap4 %}
-{% block title %}Create a new Company| {{ block.super }}{% endblock %}
+{% block title %}{{ headline}}| {{ block.super }}{% endblock %}
 {% block content %}
 <div class="container pt">
     <div class="row">
         <div class="col-md-6">
-            <h3>Create a new company</h3>
+            <h3>{{ headline }}</h3>
             <form method="POST" action=''>
                 {% bootstrap_form form %}
                 {% csrf_token %}
+                {% if object %}
+                <input type="submit" value="Save" class="btn btn-primary">
+                {% else %}
                 <input type="submit" value="Create" class="btn btn-primary">
+                {% endif %}
             </form>
         </div>
         <div class="col-md-6">
-            <h3>Create a new comopany</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum doloremque ratione non numquam,
-                similique necessitatibus eveniet ut error velit esse dicta ipsum illo quos! Et eaque dolore odit
-                sapiente ad?</p>
+            {% if object %}
+            <h3>{{ object.name }}</h3>
+            {{ object.description|linebreaks }}
+            {% else %}
+            <h3>{{ headline }}</h3>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint enim vel, eligendi sapiente quia error
+                laboriosam obcaecati cupiditate, quae eveniet, accusamus alias. Accusantium nostrum veritatis magni
+                officiis, odio odit magnam?</p>
+            {% endif %}
         </div>
     </div>
 </div>

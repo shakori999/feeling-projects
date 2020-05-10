@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from autoslug import AutoSlugField
 
 # Create your models here.
 
@@ -11,6 +12,7 @@ class Group(models.Model):
         User, on_delete=models.CASCADE, related_name="%(class)s_created"
     )
     name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from="name", default="")
     description = models.TextField(default="")
 
     class Meta:

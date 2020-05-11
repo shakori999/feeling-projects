@@ -21,15 +21,28 @@
         <div class="nav navbar-nav navbar-left">
             <!-- Example single danger button -->
             <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false" style="color: seashell;">
                     Companies
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'groups:create'  %}">Create</a>
+                    <a class="dropdown-item" href="{% url 'groups:create-com'  %}">Create</a>
                     <div class="dropdown-divider"></div>
                     {% for company in user.companies.all %}
-                    <a class="dropdown-item" href="{% url 'groups:detail' slug=company.slug %}">{{company.name}}</a>
+                    <a class="dropdown-item" href="{% url 'groups:detail-com' slug=company.slug %}">{{company.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false" style="color: seashell;">
+                    Families
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'groups:create-fam' %}">Create</a>
+                    <div class="dropdown-divider"></div>
+                    {% for family in user.families.all %}
+                    <a class="dropdown-item" href="{% url 'groups:detail-fam' slug=family.slug %}">{{family.name}}</a>
                     {% endfor %}
                 </div>
             </div>

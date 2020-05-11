@@ -9,7 +9,7 @@
             {{ object.description|linebreaks }}
             {% if user == object.created_by %}
             <hr>
-            <a href="{% url 'groups:update-com' slug=company.slug %}" class="btn btn-primary">
+            <a href="{% url 'groups:update-fam' slug=family.slug %}" class="btn btn-primary">
                 Edit</a>
             {% endif %}
         </div>

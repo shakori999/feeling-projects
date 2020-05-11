@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.urls import reverse_lazy, reverse
 from .. import forms
+from ..models import Family
 
 # from ..models import Company
 from braces.views import SetHeadlineMixin

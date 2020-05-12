@@ -26,6 +26,7 @@
                     Companies
                 </button>
                 <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'groups:invite-com'  %}">Invetation</a>
                     <a class="dropdown-item" href="{% url 'groups:create-com'  %}">Create</a>
                     <div class="dropdown-divider"></div>
                     {% for company in user.companies.all %}

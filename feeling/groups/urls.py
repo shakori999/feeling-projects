@@ -6,6 +6,11 @@ from .views import family
 company_patterns = [
     path("create/", company.Create.as_view(), name="create-com"),
     path("invite/", company.Invites.as_view(), name="invite-com"),
+    path(
+        "invite/<code>/<response>accept|reject/",
+        company.InviteResponse.as_view(),
+        name="invite-com-respone",
+    ),
     path("edit/<slug:slug>", company.Update.as_view(), name="update-com"),
     path("detail/<slug:slug>", company.Detail.as_view(), name="detail-com"),
 ]

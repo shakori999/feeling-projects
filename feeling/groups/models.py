@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 import uuid
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -52,7 +54,7 @@ class Invite(models.Model):
         User, on_delete=models.CASCADE, related_name="%(class)s_receved"
     )
     accepted = models.IntegerField(default=0, choices=INVITE_STATUS)
-    uuid = models.CharField(max_length=32, default="")
+    uuid = models.CharField(max_length=32, default="", blank=True)
 
     class Meta:
         abstract = True
@@ -80,3 +82,10 @@ class FamilyInvite(Invite):
 
     def __str__(self):
         return f"{self.to_user} invited to {self.family} by {self.from_user}"
+
+
+@receiver(post_save, sender=CompanyInvite)
+def join_company(sender, instance, created, **kwargs):
+    if not created:
+        if instance.accepted == 1:
+            instance.company.members.add(instance.to_user)

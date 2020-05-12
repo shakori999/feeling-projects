@@ -37,6 +37,13 @@ class Company(Group):
         verbose_name_plural = "companies"
 
 
+INVITE_STATUS = (
+    (0, "Pending"),
+    (1, "Accepted"),
+    (2, "Rejected"),
+)
+
+
 class Invite(models.Model):
     from_user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="%(class)s_created"
@@ -44,7 +51,7 @@ class Invite(models.Model):
     to_user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="%(class)s_receved"
     )
-    accepted = models.BooleanField(default=False)
+    accepted = models.IntegerField(default=0, choices=INVITE_STATUS)
     uuid = models.CharField(max_length=32, default="")
 
     class Meta:

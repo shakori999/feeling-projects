@@ -4,6 +4,7 @@ from django.views import generic
 from django.urls import reverse_lazy, reverse
 from .. import forms
 from ..models import Family
+from .. import models
 
 # from ..models import Company
 from braces.views import SetHeadlineMixin
@@ -37,9 +38,30 @@ class Update(LoginRequiredMixin, SetHeadlineMixin, generic.UpdateView):
         return reverse("groups:detail-com", kwargs={"slug": self.object.slug})
 
 
-class Detail(LoginRequiredMixin, generic.DetailView):
+class Detail(LoginRequiredMixin, generic.FormView):
+    form_class = forms.CompanyInviteForm
     headline = "Detail"
     template_name = "companies/detail.html"
 
     def get_queryset(self):
         return self.request.user.companies.all()
+
+    def get_object(self):
+        self.object = self.request.user.companies.get(slug=self.kwargs.get("slug"))
+        return self.object
+
+    def get_success_url(self):
+        self.get_object()
+        return reverse("groups:detail-com", kwargs={"slug": self.object.slug})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object"] = self.get_object()
+        return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        models.CompanyInvite.objects.create(
+            from_user=self.request.user, to_user=form.invite, company=self.get_object(),
+        )
+        return response

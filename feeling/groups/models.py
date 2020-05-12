@@ -19,6 +19,9 @@ class Group(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.slug
+
 
 class Family(Group):
     members = models.ManyToManyField(User, related_name="families")

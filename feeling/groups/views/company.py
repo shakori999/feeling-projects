@@ -65,3 +65,10 @@ class Detail(LoginRequiredMixin, generic.FormView):
             from_user=self.request.user, to_user=form.invite, company=self.get_object(),
         )
         return response
+
+
+class Invites(LoginRequiredMixin, generic.ListView):
+    template_name = "companies/invite.html"
+
+    def get_queryset(self):
+        return self.request.user.companyinvite_receved.all()

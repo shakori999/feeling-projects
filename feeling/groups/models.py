@@ -50,6 +50,9 @@ class Invite(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return f"{self.to_user} invtied by {self.from_user}"
+
     def save(self, *args, **kwargs):
         if not self.pk:
             self.uuid = uuid.uuid4().hex
@@ -61,8 +64,12 @@ class CompanyInvite(Invite):
         Company, related_name="invites", on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return f"{self.to_user} invited to {self.company} by {self.from_user}"
+
 
 class FamilyInvite(Invite):
-    company = models.ForeignKey(
-        Family, related_name="invites", on_delete=models.CASCADE
-    )
+    family = models.ForeignKey(Family, related_name="invites", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.to_user} invited to {self.family} by {self.from_user}"

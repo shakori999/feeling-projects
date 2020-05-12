@@ -8,3 +8,5 @@ class PersonAdmin(admin.ModelAdmin):
 
 admin.site.register(Family)
 admin.site.register(Company)
+admin.site.register(CompanyInvite)
+admin.site.register(FamilyInvite)

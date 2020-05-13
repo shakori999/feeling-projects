@@ -13,6 +13,7 @@ company_patterns = [
     ),
     path("edit/<slug:slug>", company.Update.as_view(), name="update-com"),
     path("detail/<slug:slug>", company.Detail.as_view(), name="detail-com"),
+    path("leave/<slug:slug>", company.LeaveCompany.as_view(), name="leave-com"),
 ]
 
 family_patterns = [
@@ -25,6 +26,7 @@ family_patterns = [
     ),
     path("edit/<slug:slug>", family.Update.as_view(), name="update-fam"),
     path("detail/<slug:slug>", family.Detail.as_view(), name="detail-fam"),
+    path("leave/<slug:slug>", family.LeaveFamily.as_view(), name="leave-fam"),
 ]
 
 app_name = "groups"

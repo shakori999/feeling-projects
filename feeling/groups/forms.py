@@ -28,3 +28,7 @@ class CompanyInviteForm(forms.Form):
         except models.User.DoesNotExist:
             raise ValueError("No such user")
         return data
+
+
+class LeaveForm(forms.Form):
+    pass

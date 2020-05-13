@@ -17,6 +17,12 @@ company_patterns = [
 
 family_patterns = [
     path("create/", family.Create.as_view(), name="create-fam"),
+    path("invite/", family.Invites.as_view(), name="invite-fam"),
+    path(
+        "invite/<code>/<response>accept|reject/",
+        family.InviteResponse.as_view(),
+        name="invite-fam-respone",
+    ),
     path("edit/<slug:slug>", family.Update.as_view(), name="update-fam"),
     path("detail/<slug:slug>", family.Detail.as_view(), name="detail-fam"),
 ]

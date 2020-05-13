@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.urls import reverse_lazy, reverse
 from .. import forms
+from .. import models
 
 # from ..models import Family
 from braces.views import SetHeadlineMixin
@@ -42,3 +43,30 @@ class Detail(LoginRequiredMixin, generic.DetailView):
 
     def get_queryset(self):
         return self.request.user.families.all()
+
+
+class Invites(LoginRequiredMixin, generic.ListView):
+    model = models.FamilyInvite
+    template_name = "families/invite.html"
+
+    def get_queryset(self):
+        return self.request.user.familyinvite_receved.filter(accepted=0)
+
+
+class InviteResponse(LoginRequiredMixin, generic.RedirectView):
+    url = reverse_lazy("groups:invite-fam")
+
+    def get(self, request, *args, **kwargs):
+        invite = get_object_or_404(
+            models.FamilyInvite,
+            to_user=request.user,
+            uuid=kwargs.get("code"),
+            accepted=0,
+        )
+        if kwargs.get("response") == "accept":
+            invite.accepted = 1
+        else:
+            invite.accepted = 2
+
+        invite.save()
+        return super().get(request, *args, **kwargs)
